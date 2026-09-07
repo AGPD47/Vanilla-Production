@@ -1,0 +1,82 @@
+/* ==========================================
+   VANILLA PRODUCTIONS - INDEX.CSS (UPDATED)
+   ========================================== */
+
+/* 1. Google Font Import (Inter - Apple's closest web equivalent) */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap");
+
+/* 2. Global Resets & Apple-Grade Typography Baseline */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100vw;
+  background-color: var(--bg-dark, #12100e);
+  color: var(--text-light, #e6dfd5);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter",
+    "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+}
+
+/* Subtle Film Grain Texture Overlay Across Site */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 999;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 3. Lenis Smooth Scroll Global Overrides */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Disable pointer events on embedded YouTube videos while smoothly scrolling */
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* 4. Base Input Reset & Utilities */
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
