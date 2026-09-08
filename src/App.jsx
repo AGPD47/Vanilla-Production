@@ -134,12 +134,22 @@ export default function App() {
   }, [selectedCategory, sanityGalleryData]);
 
   const navigationData = {
-    photography: ["Wedding", "Architecture", "Fashion", "Food", "Editorial"],
+    photography: [
+      "Advertising",
+      "Architecture",
+      "Events",
+      "F&B",
+      "Fashion",
+      "Industrial",
+      "Travel and landscape",
+    ],
     video: [
-      "Video Production Company in Bangalore",
-      "Commercials",
-      "Music Videos",
-      "Documentary",
+      "Advertising",
+      "Architecture",
+      "Events",
+      "F&B",
+      "Fashion",
+      "Industrial",
     ],
   };
 
@@ -164,16 +174,14 @@ export default function App() {
   const fallbackGalleryData = {
     Home: [],
     Photography: [],
-    Wedding: [],
+    Advertising: [],
     Architecture: [],
+    Events: [],
+    "F&B": [],
     Fashion: [],
-    Food: [],
-    Editorial: [],
+    Industrial: [],
+    "Travel and landscape": [],
     "Video Production": [],
-    "Video Production Company in Bangalore": [],
-    Commercials: [],
-    "Music Videos": [],
-    Documentary: [],
   };
 
   const currentGalleryItems =
