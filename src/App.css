@@ -743,3 +743,59 @@ html.lenis body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Footer Styles */
+.site-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem 2rem; /* Reduced top/bottom padding from 4rem to 2rem */
+  margin-top: 2rem; /* Reduced space above the footer */
+  background-color: var(--bg-color, #0f0f0f);
+  color: var(--text-muted, #a39585);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.footer-copyright {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.social-links a {
+  color: #fff;
+  opacity: 0.8;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-links a:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
