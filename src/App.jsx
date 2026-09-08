@@ -23,7 +23,7 @@ export default function App() {
 
   const lenisRef = useRef(null);
 
-  // 1. Fetch Live Content from Sanity CMS
+  // 1. Fetch Live Content from Sanity CMS with Strict Media Type Separation
   useEffect(() => {
     sanityClient
       .fetch(
@@ -40,11 +40,13 @@ export default function App() {
         const grouped = data.reduce((acc, item) => {
           const cat = item.category || "Home";
           if (!acc[cat]) acc[cat] = [];
+
           acc[cat].push({
             id: item._id,
             title: item.title,
+            mediaType: item.mediaType,
             url: item.mediaType === "image" ? item.url : null,
-            embedUrl: item.embedUrl,
+            embedUrl: item.mediaType === "video" ? item.embedUrl : null,
           });
           return acc;
         }, {});
@@ -184,11 +186,22 @@ export default function App() {
     "Video Production": [],
   };
 
-  const currentGalleryItems =
+  // Filter items dynamically based on whether current view is photography or video section
+  const rawGalleryItems =
     sanityGalleryData[selectedCategory.sub] &&
     sanityGalleryData[selectedCategory.sub].length > 0
       ? sanityGalleryData[selectedCategory.sub]
       : fallbackGalleryData[selectedCategory.sub] || [];
+
+  const currentGalleryItems = rawGalleryItems.filter((item) => {
+    if (selectedCategory.type === "photography") {
+      return item.mediaType === "image";
+    }
+    if (selectedCategory.type === "video") {
+      return item.mediaType === "video";
+    }
+    return true; // For Home or other views
+  });
 
   const handleCategorySelect = (type, sub) => {
     setSelectedCategory({ type, sub });
