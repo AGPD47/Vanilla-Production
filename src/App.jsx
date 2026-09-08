@@ -385,14 +385,6 @@ export default function App() {
           <li className="nav-item">
             <button
               className="nav-link-btn"
-              onClick={() => scrollToSection("#blog")}
-            >
-              Journal
-            </button>
-          </li>
-          <li className="nav-item">
-            <button
-              className="nav-link-btn"
               onClick={() => scrollToSection("#contact")}
             >
               Contact
