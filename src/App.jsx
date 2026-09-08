@@ -391,7 +391,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <span>Independent Creative Studio — Bangalore</span>
+              <span>Independent Creative Studio</span>
             </motion.div>
 
             <motion.h1
