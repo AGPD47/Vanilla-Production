@@ -210,15 +210,6 @@ export default function App() {
     setSelectedCategory({ type, sub });
     setOpenDropdown(null);
     setMobileMenuOpen(false);
-
-    const workSection = document.querySelector("#work");
-    if (workSection) {
-      if (lenisRef.current) {
-        lenisRef.current.scrollTo(workSection);
-      } else {
-        workSection.scrollIntoView({ behavior: "smooth" });
-      }
-    }
   };
 
   const scrollToSection = (id) => {
