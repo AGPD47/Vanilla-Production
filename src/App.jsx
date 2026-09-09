@@ -132,6 +132,17 @@ export default function App() {
     };
   }, []);
 
+  // Close lightbox on pressing the Esc key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setLightboxImage(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   useEffect(() => {
     if (lenisRef.current) {
       lenisRef.current.resize();
