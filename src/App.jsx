@@ -215,15 +215,20 @@ export default function App() {
   };
 
   // Automatically combine all subcategories when main "Photography" or "Video Production" is selected
+  // Automatically combine subcategories and "Home" items when main "Photography" or "Video Production" is selected
   const rawGalleryItems = (() => {
     if (selectedCategory.sub === "Photography") {
-      return navigationData.photography.flatMap(
+      const subItems = navigationData.photography.flatMap(
         (sub) => sanityGalleryData[sub] || [],
       );
+      const homeItems = sanityGalleryData["Home"] || [];
+      return [...homeItems, ...subItems];
     } else if (selectedCategory.sub === "Video Production") {
-      return navigationData.video.flatMap(
+      const subItems = navigationData.video.flatMap(
         (sub) => sanityGalleryData[sub] || [],
       );
+      const homeItems = sanityGalleryData["Home"] || [];
+      return [...homeItems, ...subItems];
     } else {
       return (
         (sanityGalleryData[selectedCategory.sub] &&
