@@ -86,7 +86,7 @@ export default function App() {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("https://formspree.io/f/mgaeyrny", {
+      const response = await fetch("https://formspree.io/f/mljeandr", {
         method: "POST",
         body: formData,
         headers: {
