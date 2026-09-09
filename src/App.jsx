@@ -21,6 +21,9 @@ export default function App() {
   const [sanityGalleryData, setSanityGalleryData] = useState({});
   const [loadingSanity, setLoadingSanity] = useState(true);
 
+  // Lightbox state for full-screen image preview
+  const [lightboxImage, setLightboxImage] = useState(null);
+
   const lenisRef = useRef(null);
 
   // 1. Fetch Live Content from Sanity CMS with Strict Media Type Separation
@@ -208,7 +211,6 @@ export default function App() {
     setOpenDropdown(null);
     setMobileMenuOpen(false);
 
-    // Smoothly scroll to portfolio grid on mobile selection
     const workSection = document.querySelector("#work");
     if (workSection) {
       if (lenisRef.current) {
@@ -245,7 +247,6 @@ export default function App() {
   const fallbackImageDataUri =
     "data:image/svg+xml;charset=UTF-8,%3Csvg width='900' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='%231a1714'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23a39585' font-family='sans-serif' font-size='18'%3EImage Unavailable%3C/text%3E%3C/svg%3E";
 
-  // Determine subcategories for mobile button bar
   const activeSubcategories =
     selectedCategory.type === "photography"
       ? [
@@ -526,7 +527,7 @@ export default function App() {
             </section>
           )}
 
-          {/* Portfolio Grid (Sanity + Fallback Data) */}
+          {/* Portfolio Grid */}
           <section id="work" className="section">
             <div className="section-title-row">
               <h2>
@@ -536,7 +537,6 @@ export default function App() {
               </h2>
             </div>
 
-            {/* Mobile Subcategory Buttons Row */}
             {activeSubcategories.length > 0 && (
               <div className="mobile-subcategory-bar">
                 {activeSubcategories.map((item) => (
@@ -570,6 +570,10 @@ export default function App() {
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.5, delay: index * 0.08 }}
                     whileHover={{ y: -4 }}
+                    onClick={() => {
+                      if (item.url) setLightboxImage(item);
+                    }}
+                    style={{ cursor: item.url ? "pointer" : "default" }}
                   >
                     <div
                       className={`media-container ${
@@ -723,6 +727,42 @@ export default function App() {
           </footer>
         </div>
       </div>
+
+      {/* Lightbox Modal Overlay */}
+      <AnimatePresence>
+        {lightboxImage && (
+          <motion.div
+            className="lightbox-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightboxImage(null)}
+          >
+            <motion.div
+              className="lightbox-content"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="lightbox-close"
+                onClick={() => setLightboxImage(null)}
+                aria-label="Close Lightbox"
+              >
+                ✕
+              </button>
+              <img
+                src={lightboxImage.url}
+                alt={lightboxImage.title || "Full View"}
+              />
+              <div className="lightbox-caption">
+                <h3>{lightboxImage.title || "Untitled Project"}</h3>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
