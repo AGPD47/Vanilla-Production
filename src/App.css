@@ -396,13 +396,16 @@ html.lenis body {
   font-weight: 600;
 }
 
+/* --- Masonry Layout Replacement --- */
 .film-strip-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  column-count: 3;
+  column-gap: 1.5rem;
+  width: 100%;
 }
 
 .film-frame {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
   background-color: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-color);
   border-radius: 12px;
@@ -421,15 +424,15 @@ html.lenis body {
 .media-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
   overflow: hidden;
   background: #000;
 }
 
 .media-container img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  display: block;
+  object-fit: unset;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -439,14 +442,15 @@ html.lenis body {
 
 .media-container iframe {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 9;
   border: none;
   pointer-events: auto !important;
+  display: block;
 }
 
 .media-title {
-  padding: 1rem 1.25rem;
-  font-size: 0.9rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--text-light);
@@ -471,7 +475,7 @@ html.lenis body {
 
 .media-placeholder {
   width: 100%;
-  height: 100%;
+  padding: 3rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -589,7 +593,8 @@ html.lenis body {
   }
 
   .film-strip-grid {
-    gap: 1.5rem;
+    column-count: 2;
+    column-gap: 1.5rem;
   }
 }
 
@@ -653,8 +658,8 @@ html.lenis body {
 
   /* Responsive Grid Adjustments */
   .film-strip-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+    column-count: 1 !important;
+    column-gap: 0 !important;
   }
 
   .contact-form {
@@ -706,16 +711,6 @@ html.lenis body {
   margin: 0 auto 1rem auto;
 }
 
-/* Bento Grid First Item Span (Desktop view) */
-@media (min-width: 901px) {
-  .film-frame.featured-span {
-    grid-column: span 2;
-  }
-  .film-frame.featured-span .media-container {
-    aspect-ratio: 21 / 9;
-  }
-}
-
 /* Sleek Media Title Overlay on Hover */
 .media-container {
   position: relative;
@@ -747,8 +742,8 @@ html.lenis body {
 /* Footer Styles */
 .site-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2rem 2rem; /* Reduced top/bottom padding from 4rem to 2rem */
-  margin-top: 2rem; /* Reduced space above the footer */
+  padding: 2rem 2rem;
+  margin-top: 2rem;
   background-color: var(--bg-color, #0f0f0f);
   color: var(--text-muted, #a39585);
 }
