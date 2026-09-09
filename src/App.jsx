@@ -26,7 +26,7 @@ export default function App() {
 
   const lenisRef = useRef(null);
 
-  // 1. Fetch Live Content from Sanity CMS matching your single-image database field
+  // 1. Fetch Live Content from Sanity CMS matching your multi-image database field
   useEffect(() => {
     sanityClient
       .fetch(
@@ -34,7 +34,7 @@ export default function App() {
           _id,
           category,
           mediaType,
-          "url": image.asset->url,
+          "images": images[].asset->url,
           embedUrl
         }`,
       )
@@ -43,12 +43,28 @@ export default function App() {
           const cat = item.category || "Home";
           if (!acc[cat]) acc[cat] = [];
 
-          acc[cat].push({
-            id: item._id,
-            mediaType: item.mediaType,
-            url: item.mediaType === "image" ? item.url : null,
-            embedUrl: item.mediaType === "video" ? item.embedUrl : null,
-          });
+          if (
+            item.mediaType === "image" &&
+            item.images &&
+            item.images.length > 0
+          ) {
+            item.images.forEach((imgUrl, index) => {
+              acc[cat].push({
+                id: `${item._id}-${index}`,
+                mediaType: "image",
+                url: imgUrl,
+                embedUrl: null,
+              });
+            });
+          } else if (item.mediaType === "video" && item.embedUrl) {
+            acc[cat].push({
+              id: item._id,
+              mediaType: "video",
+              url: null,
+              embedUrl: item.embedUrl,
+            });
+          }
+
           return acc;
         }, {});
 
