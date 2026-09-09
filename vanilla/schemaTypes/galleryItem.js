@@ -40,10 +40,10 @@ export default {
       },
     },
     {
-      name: 'image',
-      title: 'Image Upload',
-      type: 'image',
-      options: {hotspot: true},
+      name: 'images',
+      title: 'Image Uploads',
+      type: 'array',
+      of: [{type: 'image', options: {hotspot: true}}],
       hidden: ({parent}) => parent?.mediaType !== 'image',
     },
     {

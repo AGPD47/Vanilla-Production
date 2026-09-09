@@ -26,13 +26,12 @@ export default function App() {
 
   const lenisRef = useRef(null);
 
-  // 1. Fetch Live Content from Sanity CMS with Strict Media Type Separation
+  // 1. Fetch Live Content from Sanity CMS matching your single-image database field
   useEffect(() => {
     sanityClient
       .fetch(
         `*[_type == "galleryItem"]{
           _id,
-          title,
           category,
           mediaType,
           "url": image.asset->url,
@@ -46,7 +45,6 @@ export default function App() {
 
           acc[cat].push({
             id: item._id,
-            title: item.title,
             mediaType: item.mediaType,
             url: item.mediaType === "image" ? item.url : null,
             embedUrl: item.mediaType === "video" ? item.embedUrl : null,
@@ -598,9 +596,7 @@ export default function App() {
                       {item.url ? (
                         <img
                           src={item.url}
-                          alt={
-                            item.title || "Vanilla Productions Gallery Image"
-                          }
+                          alt="Vanilla Productions Gallery Image"
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = fallbackImageDataUri;
@@ -609,7 +605,7 @@ export default function App() {
                       ) : item.embedUrl ? (
                         <iframe
                           src={item.embedUrl}
-                          title={item.title || "Video Project"}
+                          title="Video Project"
                           loading="lazy"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
@@ -619,10 +615,6 @@ export default function App() {
                           No Media Available
                         </div>
                       )}
-
-                      <div className="media-overlay-meta">
-                        <span>{item.title || "Untitled Project"}</span>
-                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -767,13 +759,7 @@ export default function App() {
               >
                 ✕
               </button>
-              <img
-                src={lightboxImage.url}
-                alt={lightboxImage.title || "Full View"}
-              />
-              <div className="lightbox-caption">
-                <h3>{lightboxImage.title || "Untitled Project"}</h3>
-              </div>
+              <img src={lightboxImage.url} alt="Full View" />
             </motion.div>
           </motion.div>
         )}
