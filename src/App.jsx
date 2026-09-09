@@ -200,12 +200,25 @@ export default function App() {
     "Video Production": [],
   };
 
-  // Filter items dynamically based on whether current view is photography or video section
-  const rawGalleryItems =
-    sanityGalleryData[selectedCategory.sub] &&
-    sanityGalleryData[selectedCategory.sub].length > 0
-      ? sanityGalleryData[selectedCategory.sub]
-      : fallbackGalleryData[selectedCategory.sub] || [];
+  // Automatically combine all subcategories when main "Photography" or "Video Production" is selected
+  const rawGalleryItems = (() => {
+    if (selectedCategory.sub === "Photography") {
+      return navigationData.photography.flatMap(
+        (sub) => sanityGalleryData[sub] || [],
+      );
+    } else if (selectedCategory.sub === "Video Production") {
+      return navigationData.video.flatMap(
+        (sub) => sanityGalleryData[sub] || [],
+      );
+    } else {
+      return (
+        (sanityGalleryData[selectedCategory.sub] &&
+        sanityGalleryData[selectedCategory.sub].length > 0
+          ? sanityGalleryData[selectedCategory.sub]
+          : fallbackGalleryData[selectedCategory.sub]) || []
+      );
+    }
+  })();
 
   const currentGalleryItems = rawGalleryItems.filter((item) => {
     if (selectedCategory.type === "photography") {
